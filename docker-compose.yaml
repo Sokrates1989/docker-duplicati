@@ -1,4 +1,14 @@
 version: "2.1"
+
+networks:
+  mynet:
+    name: mynet
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
+
 services:
   duplicati:
     image: ghcr.io/linuxserver/duplicati
@@ -13,8 +23,10 @@ services:
       - /share/test:/customDirs/tobackup/test:ro # Volume Mount to the folder that needs to backed up
       - ./restore:/customDirs/restore # To be able to restore files directly on the file system
       - ./torestore:/customDirs/torestore # To be able to put files to restore directly to the file system
-      - /share/pricetracker/live/priceTracker/install/database/backup:/customDirs/tobackup/priceTracker:ro # Volume Mount to the pricetracker database backup to allow making backup of this directory
+      - /share/priceTracker/live/priceTracker/install/database/backup:/customDirs/tobackup/priceTracker:ro # Volume Mount to the pricetracker database backup to allow making backup of this directory
       - /share/namedCountdown/live/nameTheCountdown/install/database/backup:/customDirs/tobackup/nameTheCountdown:ro # Volume Mount to the namethecountdownbot database backup to allow making backup of this directory
     ports:
       - 8200:8200
     restart: unless-stopped
+    networks:
+      - mynet
