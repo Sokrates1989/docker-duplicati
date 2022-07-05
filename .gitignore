@@ -1,0 +1,5 @@
+# Ignore mounts.
+backups
+torestore
+restore
+config
