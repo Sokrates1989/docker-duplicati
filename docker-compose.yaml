@@ -18,7 +18,7 @@ services:
       - PGID=1000  # The PGID can be set to 0 which will give root permissions to the container
       - TZ=Europe/Berlin # Set the appropriate timezone https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     volumes:
-      - ./config:/customDirs/config # Volume Mount to the config folder of all your docker containers
+      - ./config:/config # Volume Mount to the config folder of all your docker containers
       - ./backups:/customDirs/backups # If the backup needs to be stored on your machine, add a volume mount to that path here
       - /share/test:/customDirs/tobackup/test:ro # Volume Mount to the folder that needs to backed up
       - ./restore:/customDirs/restore # To be able to restore files directly on the file system
